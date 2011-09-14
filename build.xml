@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<project default="build">
+
+  <!-- This is broken, but is along the lines of what I need -->
+  <target name="build">
+    <exec executable="scalac">
+      <arg file="*.scala"/>
+    </exec>
+  </target>
+
+  <target name="clean">
+    <delete>
+      <fileset dir="." includes="*.class"/>
+    </delete>
+  </target>
+
+</project>
