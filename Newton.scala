@@ -4,19 +4,21 @@ object Newton {
 
   class Recursive(square: Double) {
 
-    val precision = 1e-6
+    private val precision = 1e-6
 
     def improve(guess: Double): Double =
       (square/guess + guess)/2
 
-    def isPrecise(guess: Double): Boolean =
-      abs(square - guess*guess) < precision
+    def isPrecise(guess: Double, previous: Double): Boolean =
+      abs(guess - previous) < precision
 
-    def sqrt(): Double = sqrtIter(1.0)
+    def sqrt(): Double = sqrtIter(1.0, 0.0)
 
-    def sqrtIter(guess: Double): Double =
-      if (isPrecise(guess)) guess
-      else sqrtIter(improve(guess))
+    def sqrtIter(guess: Double, previous: Double): Double = {
+      println("guess = " + guess)
+      if (isPrecise(guess, previous)) guess
+      else sqrtIter(improve(guess), guess)
+    }
 
   }
 
@@ -34,7 +36,7 @@ object Newton {
       while (scala.math.abs(root-previous) > precision) {
         previous = root
         root = avg(root, quotient(square, root))
-//DEBUG//        println(root)//DEBUG//
+        println("root = " + root)//DEBUG//
       }
       root
     }
