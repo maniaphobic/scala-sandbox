@@ -13,6 +13,8 @@ CLASS_FILES = \
 
 SCALAC = scalac
 
+SCALAC_OPTS = 
+
 #
 # Targets
 #
@@ -20,7 +22,7 @@ SCALAC = scalac
 all: $(CLASS_FILES)
 
 %.class: %.scala
-	$(SCALAC) $<
+	$(SCALAC) $(SCALAC_OPTS) $<
 
 clean:
 	-rm -f *.class
