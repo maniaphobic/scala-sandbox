@@ -4,20 +4,19 @@ object Newton {
 
   class Recursive(square: Double) {
 
-    private val precision = 1e-6
+    def sqrt(): Double = {
+      val precision = 1e-6
+      def improve(guess: Double): Double =
+        (square/guess + guess)/2
+      def isPrecise(guess: Double, previous: Double): Boolean =
+        abs(guess - previous) < precision
+      def sqrtIter(guess: Double, previous: Double): Double = {
+        println("guess = " + guess)
+        if (isPrecise(guess, previous)) guess
+        else sqrtIter(improve(guess), guess)
+      }
 
-    def improve(guess: Double): Double =
-      (square/guess + guess)/2
-
-    def isPrecise(guess: Double, previous: Double): Boolean =
-      abs(guess - previous) < precision
-
-    def sqrt(): Double = sqrtIter(1.0, 0.0)
-
-    def sqrtIter(guess: Double, previous: Double): Double = {
-      println("guess = " + guess)
-      if (isPrecise(guess, previous)) guess
-      else sqrtIter(improve(guess), guess)
+      sqrtIter(1.0, 0.0) 
     }
 
   }
