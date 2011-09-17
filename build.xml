@@ -1,18 +1,39 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<project default="build">
+<!--
+  Help at these locations:
+    - http://www.scala-lang.org/node/98
+    - http://stackoverflow.com/questions/4665635/configure-ant-for-scala
+  -->
 
-  <!-- This is broken, but is along the lines of what I need -->
-  <target name="build">
-    <exec executable="scalac">
-      <arg file="*.scala"/>
-    </exec>
-  </target>
+<project name="Scala sandbox" default="build" basedir=".">
+<description>Scala sandbox</description>
 
-  <target name="clean">
-    <delete>
-      <fileset dir="." includes="*.class"/>
-    </delete>
-  </target>
+<!-- Define paths -->
+<property name="scala.home" location="/opt/local/share/scala-2.9"/>
+<property name="scala-compiler.jar" value="${scala.home}/lib/scala-compiler.jar"/>
+<property name="scala-library.jar" value="${scala.home}/lib/scala-library.jar"/>
+<path id="build.classpath">
+  <pathelement location="${scala-library.jar}"   />
+</path>
+
+<!-- Define the Scala compiler task -->
+<path id="scala.classpath">
+  <pathelement location="${scala-compiler.jar}"/>
+  <pathelement location="${scala-library.jar}"/>
+</path>
+
+<taskdef resource="scala/tools/ant/antlib.xml">
+ <classpath refid="scala.classpath"/>
+</taskdef>
+
+<!-- Define targets -->
+<target name="build">
+  <scalac srcdir="." classpathref="build.classpath"/>
+</target>
+
+<target name="clean">
+  <!-- COMPLETE ME -->
+</target>
 
 </project>
